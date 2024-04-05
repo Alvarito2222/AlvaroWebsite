@@ -23,14 +23,14 @@ svg{
  /*Light theme variables*/
   --color-text-light: rgb(17, 17, 17);
   --color-background-light: #FAF4E5;
-  --color-pink-light : #e5a1aa;
+  --color-pink-light : #79d4e0;
   --color-green-light : #7AD0AC;
   --color-blue-light: #8395CD;
 
    /*Dark theme variables*/
 
    --color-text-dark: #FAF4E5;
-  --color-background-dark:  rgb(17, 17, 17);
+  --color-background-dark:  #8395CD;
 }
 
 .light-theme{
