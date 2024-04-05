@@ -102,6 +102,30 @@ svg{
   position : relative;
 }
 
+.my-custom-image {
+  width: 100%; /* Make the image responsive by setting its width to 100% of the container */
+  height: auto; /* Keep the image's aspect ratio */
+  border-radius: 8px; /* Optionally, give the image rounded corners */
+  /* Add more styles as needed */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+
+  transition: transform 0.3s ease-in-out;
+  margin-top: 18px;
+
+  filter: grayscale(50%); /* Partially convert to grayscale */
+  filter: blur(2px); /* Blur the image */
+  opacity: 0.8; 
+}
+
+.my-custom-image:hover {
+  transform: scale(1.3); /* Scale up by 10% when hovered */
+  cursor: pointer;
+  filter: grayscale(100%); /* Partially convert to grayscale */
+  filter: blur(0px); /* Blur the image */
+  opacity: 1; 
+}
+
+
 /*Toggle Bar --------------------------------------------- */
 
 .toggle-bar{
@@ -198,6 +222,7 @@ svg{
   line-height: 1.8;
   margin-top:64px;
   color :var(--color-text);
+  text-align: center;
 }
 
 .section-text{
@@ -270,7 +295,7 @@ svg{
 .hero{
   width: 100vw;
   height: 100vh;
-  color : #ADD8E6;
+  color : #a3cada;
 }
 
 .hero-wrapper{
