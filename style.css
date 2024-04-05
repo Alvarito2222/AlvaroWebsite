@@ -102,6 +102,7 @@ svg{
   position : relative;
 }
 
+
 .my-custom-image {
   width: 100%; /* Make the image responsive by setting its width to 100% of the container */
   height: auto; /* Keep the image's aspect ratio */
@@ -113,8 +114,8 @@ svg{
   margin-top: 18px;
 
   filter: grayscale(50%); /* Partially convert to grayscale */
-  filter: blur(2px); /* Blur the image */
-  opacity: 0.8; 
+  filter: blur(1px); /* Blur the image */
+  opacity: 0.9; 
 }
 
 .my-custom-image:hover {
@@ -123,6 +124,117 @@ svg{
   filter: grayscale(100%); /* Partially convert to grayscale */
   filter: blur(0px); /* Blur the image */
   opacity: 1; 
+}
+
+.my-custom-image1 {
+  width: 100%; /* Make the image responsive by setting its width to 100% of the container */
+  height: auto; /* Keep the image's aspect ratio */
+  border-radius: 8px; /* Optionally, give the image rounded corners */
+  /* Add more styles as needed */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+
+  transition: transform 0.3s ease-in-out , z-index 0s;
+  margin-top: 18px;
+
+  filter: grayscale(50%); /* Partially convert to grayscale */
+  filter: blur(1px); /* Blur the image */
+  opacity: 0.9; 
+  position: relative;
+}
+
+.my-custom-image1:hover {
+  transform: translate(55%, 65%) scale(2.6); /* Scale up by 10% when hovered */
+  cursor: pointer;
+  filter: grayscale(100%); /* Partially convert to grayscale */
+  filter: blur(0px); /* Blur the image */
+  opacity: 1; 
+  z-index: 10;
+}
+
+
+.my-custom-image2 {
+  width: 100%; /* Make the image responsive by setting its width to 100% of the container */
+  height: auto; /* Keep the image's aspect ratio */
+  border-radius: 8px; /* Optionally, give the image rounded corners */
+  /* Add more styles as needed */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+
+  transition: transform 0.3s ease-in-out , z-index 0s;
+  margin-top: 18px;
+
+  filter: grayscale(50%); /* Partially convert to grayscale */
+  filter: blur(1px); /* Blur the image */
+  opacity: 0.9; 
+  position: relative;
+}
+
+.my-custom-image2:hover {
+  transform: translate(-55%, 65%) scale(2.6); /* Scale up by 10% when hovered */
+  cursor: pointer;
+  filter: grayscale(100%); /* Partially convert to grayscale */
+  filter: blur(0px); /* Blur the image */
+  opacity: 1; 
+  z-index: 10;
+}
+
+.my-custom-image3 {
+  width: 100%; /* Make the image responsive by setting its width to 100% of the container */
+  height: auto; /* Keep the image's aspect ratio */
+  border-radius: 8px; /* Optionally, give the image rounded corners */
+  /* Add more styles as needed */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+
+  transition: transform 0.3s ease-in-out , z-index 0s;
+  margin-top: 18px;
+
+  filter: grayscale(50%); /* Partially convert to grayscale */
+  filter: blur(1px); /* Blur the image */
+  opacity: 0.9; 
+  position: relative;
+}
+
+.my-custom-image3:hover {
+  transform: translate(55%, -65%) scale(2.6); /* Scale up by 10% when hovered */
+  cursor: pointer;
+  filter: grayscale(100%); /* Partially convert to grayscale */
+  filter: blur(0px); /* Blur the image */
+  opacity: 1; 
+  z-index: 10;
+}
+
+
+.my-custom-image4 {
+  width: 100%; /* Make the image responsive by setting its width to 100% of the container */
+  height: auto; /* Keep the image's aspect ratio */
+  border-radius: 8px; /* Optionally, give the image rounded corners */
+  /* Add more styles as needed */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+
+  transition: transform 0.3s ease-in-out , z-index 0s;
+  margin-top: 18px;
+
+  filter: grayscale(50%); /* Partially convert to grayscale */
+  filter: blur(1px); /* Blur the image */
+  opacity: 0.9; 
+  position: relative;
+}
+
+.my-custom-image4:hover {
+  transform: translate(-55%, -65%) scale(2.6); /* Scale up by 10% when hovered */
+  cursor: pointer;
+  filter: grayscale(100%); /* Partially convert to grayscale */
+  filter: blur(0px); /* Blur the image */
+  opacity: 1; 
+  z-index: 10;
+}
+
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* creates 2 columns */
+  grid-gap: 20px; /* space between images */
+  margin-top: 18px;
+  position: relative;
+
 }
 
 
@@ -317,23 +429,23 @@ svg{
 
 .hero-second{
   position: relative;
-  color :var(--color-text);
+  color :var(--color-pink);
 }
 
 .hero-main-title{
   font-size : 16px;
-  color :var(--color-text);
+  color :var(--color-pink);
 }
 
 .hero-main-description{
   font-size : 12px;
-  color :var(--color-text);
+  color :var(--color-pink);
 }
 
 .hero-second-subheading{
   font-size : 30px;
   text-transform: uppercase;
-  color :var(--color-text);
+  color :var(--color-pink);
 }
 
 
