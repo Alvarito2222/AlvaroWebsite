@@ -6,7 +6,7 @@ import Assets from './Utils/Assets';
 
 import Camera from './Camera.js';
 import Renderer from './Renderer.js';
-
+import Theme from './Theme.js';
 import World from './World/World';
 import Controls from './World/Controls';
 
@@ -25,6 +25,7 @@ export default class Experience{
         this.camera = new Camera();
         this.renderer = new Renderer();
         this.resources = new Resources(Assets);
+        this.theme = new Theme();
         this.world = new World();
         this.controls = new Controls();
 

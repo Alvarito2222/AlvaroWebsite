@@ -16,6 +16,7 @@ export default class World{
         
         this.camera = this.experience.camera;
         this.resources = this.experience.resources;
+        this.theme = this.experience.theme;
 
         this.resources.on("ready", ()=> {
             this.environment = new Environment();
@@ -25,11 +26,17 @@ export default class World{
             this.controls = new Controls();
         });
         
-        
+        this.theme.on("switch", (theme) =>{
+            this.switchTheme(theme);
+        });
 
-        
     }
-
+    switchTheme(theme){
+        if(this.environment){
+            this.environment.switchTheme(theme);
+            
+        }
+    }
     
     
 

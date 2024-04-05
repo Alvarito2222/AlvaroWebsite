@@ -32,13 +32,15 @@ export default class Controls{
         this.timeline = new GSAP.timeline();
         this.timeline.to(this.room.position,  {
             x: () => {
-                return this.sizes.width * 0.00094;
+                return this.sizes.width * 0.0012;
             },
-            duration : 20,
-            ScrollTrigger: {
-                trigger:".first-move",
-                scrub :0.5 ,
-                invalidateOnRefresh : true,
+            scrollTrigger: {
+                trigger: ".first-move",
+                markers: true,
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 0.6,
+                invalidateOnRefresh: true,
 
             },
         });

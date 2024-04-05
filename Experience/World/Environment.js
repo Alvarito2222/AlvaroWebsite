@@ -1,5 +1,7 @@
 import Experience from "../Experience.js";
 import * as THREE  from"three";
+import GSAP from "gsap";
+import GUI from 'lil-gui'; 
 
 export default class Environment{
     constructor(){
@@ -7,13 +9,32 @@ export default class Environment{
         this.scene = this.experience.scene;
         this.resources = this.experience.resources;
        
-       
+       // this.gui = new GUI({container: document.querySelector(".hero-main")});
+       /* this.obj = {
+            colorObj : {r: 0 ,g: 0 , b:0},
+            intensity :2,
+
+        };*/
        this.setSunlight();
+
+      // this.setGUI();
        
     }
 
+   /* setGUI(){
+        this.gui.addColor(this.obj,"colorObj").onChange(()=>{
+            this.sunLight.color.copy(this.obj.colorObj)
+            this.ambientLight.color.copy(this.obj.colorObj)
+            console.log(this.obj.colorObj);
+        });
+        this.gui.add(this.obj, "intensity", 0,10).onChange(()=>{
+            this.sunLight.intensity = this.obj.intensity
+            this.ambientLight.intensity = this.obj.intensity
+        })
+    }*/
+
     setSunlight(){
-        this.sunLight = new THREE.DirectionalLight("#ffffff", 2);
+        this.sunLight = new THREE.DirectionalLight(new THREE.Color(0.7019607843137254, 0.8431372549019608, 0.9176470588235294), 4);
         this.sunLight.castShadow = true;
         this.sunLight.shadow.camera.near = 0.1;
         this.sunLight.shadow.camera.far = 50;
@@ -42,6 +63,38 @@ export default class Environment{
   
     }
     
+    switchTheme(theme){
+        if(theme=== "dark"){
+            GSAP.to(this.sunLight.color,{
+                r: 0.32941176470588235,
+                g:0.3058823529411765,
+                b:0.796078431372549,
+            });
+            GSAP.to(this.ambientLight.color,{
+                r:0.32941176470588235,
+                g:0.3058823529411765,
+                b:0.796078431372549,
+            });
+            GSAP.to(this.sunLight, {
+                intensity : 4.5, 
+            })
+            GSAP.to(this.ambientLight, {
+                intensity : 4.5, 
+            })
+
+        }else{
+            GSAP.to(this.sunLight.color,{
+                r:0.7019607843137254,
+                g:0.8431372549019608,
+                b:0.9176470588235294,
+            });
+            GSAP.to(this.ambientLight.color,{
+                r:0.7019607843137254,
+                g:0.8431372549019608,
+                b:0.9176470588235294,
+            });
+        }
+    }
 
     resize(){
         
