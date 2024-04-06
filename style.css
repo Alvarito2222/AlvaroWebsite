@@ -143,7 +143,7 @@ svg{
 }
 
 .my-custom-image1:hover {
-  transform: translate(55%, 65%) scale(2.6); /* Scale up by 10% when hovered */
+  transform: translate(55%, 65%) scale(2.7); /* Scale up by 10% when hovered */
   cursor: pointer;
   filter: grayscale(100%); /* Partially convert to grayscale */
   filter: blur(0px); /* Blur the image */
@@ -169,7 +169,7 @@ svg{
 }
 
 .my-custom-image2:hover {
-  transform: translate(-55%, 65%) scale(2.6); /* Scale up by 10% when hovered */
+  transform: translate(-55%, 65%) scale(2.7); /* Scale up by 10% when hovered */
   cursor: pointer;
   filter: grayscale(100%); /* Partially convert to grayscale */
   filter: blur(0px); /* Blur the image */
@@ -194,7 +194,7 @@ svg{
 }
 
 .my-custom-image3:hover {
-  transform: translate(55%, -65%) scale(2.6); /* Scale up by 10% when hovered */
+  transform: translate(55%, -65%) scale(2.7); /* Scale up by 10% when hovered */
   cursor: pointer;
   filter: grayscale(100%); /* Partially convert to grayscale */
   filter: blur(0px); /* Blur the image */
@@ -220,7 +220,7 @@ svg{
 }
 
 .my-custom-image4:hover {
-  transform: translate(-55%, -65%) scale(2.6); /* Scale up by 10% when hovered */
+  transform: translate(-55%, -65%) scale(2.7); /* Scale up by 10% when hovered */
   cursor: pointer;
   filter: grayscale(100%); /* Partially convert to grayscale */
   filter: blur(0px); /* Blur the image */
@@ -448,4 +448,21 @@ svg{
   color :var(--color-pink);
 }
 
+.center-container-botton {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  margin-top: 20px;
+}
 
+.download-cert-btn {
+  padding: 10px 20px;
+  background-color: #79d4e0;
+  color: var(--color-text);
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+.download-cert-btn:hover{
+  cursor: pointer;
+  background-color: #7AD0AC;
+}
