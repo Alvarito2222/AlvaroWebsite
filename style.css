@@ -313,7 +313,7 @@ svg{
   margin-right: auto;
 }
 .right{
-  margin-right: auto;
+  margin-left: auto;
 }
 
 .section-intro-wrapper{
@@ -465,4 +465,11 @@ svg{
 .download-cert-btn:hover{
   cursor: pointer;
   background-color: #7AD0AC;
+}
+
+
+@media (max-width: 968px){
+  .section{
+    width: 100%;
+  }
 }
