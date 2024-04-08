@@ -4,6 +4,7 @@ import Camera from "../Camera.js";
 import * as THREE  from"three";
 import GSAP from "gsap";
 import  ScrollTrigger  from "gsap/ScrollTrigger.js";
+import ASScroll from '@ashthornton/asscroll';
 
 
 export default class Controls{
@@ -18,14 +19,58 @@ export default class Controls{
         this.resources.on("ready", ()=> {
 
             this.room = this.experience.world.room.actualRoom;
+            this.setSmoothScroll();
             this.setScrollTrigger();
+            
+
         });
 
 
+        
         GSAP.registerPlugin(ScrollTrigger);
 
         
 
+    }
+
+    setupASScroll() {
+        const asscroll = new ASScroll({
+          disableRaf: true });
+      
+      
+          GSAP.ticker.add(asscroll.update);
+      
+        ScrollTrigger.defaults({
+          scroller: asscroll.containerElement });
+      
+      
+        ScrollTrigger.scrollerProxy(asscroll.containerElement, {
+          scrollTop(value) {
+            if (arguments.length) {
+              asscroll.currentPos = value;
+              return;
+            }
+            return asscroll.currentPos;
+          },
+          getBoundingClientRect() {
+            return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
+          },
+          fixedMarkers: true });
+      
+      
+        asscroll.on("update", ScrollTrigger.update);
+        ScrollTrigger.addEventListener("refresh", asscroll.resize);
+      
+        requestAnimationFrame(() => {
+          asscroll.enable({
+            newScrollElements: document.querySelectorAll(".gsap-marker-start, .gsap-marker-end, [asscroll]") });
+      
+        });
+        return asscroll;
+      }
+
+    setSmoothScroll(){
+        this.asscroll = this.setupASScroll();
     }
 
     setScrollTrigger(){
@@ -127,7 +172,8 @@ export default class Controls{
 
             
           
-            all: function () {
+            all:  ()=> {
+                
              
             },
           });
