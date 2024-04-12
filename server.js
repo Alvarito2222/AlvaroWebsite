@@ -7,12 +7,17 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-// Serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve static files from the 'dist' directory
+app.use(express.static(path.join(__dirname, 'dist')));
 
-// Handle SPA routing by returning the index.html for all routes
+// Specific route for the PDF file
+app.get('/AlvaroResume.pdf', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'dist', 'AlvaroResume.pdf'));
+});
+
+// Handle SPA routing by returning the index.html for all other routes
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'src', 'index.html')); // Adjust this path based on where your index.html is located
+  res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
 });
 
 const PORT = process.env.PORT || 3000;
