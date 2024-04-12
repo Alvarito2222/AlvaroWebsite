@@ -1,4 +1,3 @@
-// server.js
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -11,7 +10,12 @@ const app = express();
 // Serve static files from the 'dist' directory
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Handle SPA routing by returning the index.html for all routes
+// Specific route for the PDF file
+app.get('/AlvaroResume.pdf', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'dist', 'AlvaroResume.pdf'));
+});
+
+// Handle SPA routing by returning the index.html for all other routes
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
 });
