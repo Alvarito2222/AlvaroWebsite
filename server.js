@@ -22,3 +22,12 @@ app.get('*', (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
+var request = require('request');
+
+request('https://iptoearth.expeditedaddons.com/?api_key=46DML4235XRISJPTV1E02WH7OY9073Z986QKG8BC5F1AUN&ip=68.10.149.45', function (error, response, body) {
+  console.log('Status:', response.statusCode);
+  console.log('Headers:', JSON.stringify(response.headers));
+  console.log('Response:', body);
+});
