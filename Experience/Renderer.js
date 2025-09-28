@@ -1,6 +1,10 @@
 import Experience from "./Experience.js";
 
 import * as THREE  from"three";
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 
 export default class Renderer{
     constructor(){
@@ -20,55 +24,68 @@ export default class Renderer{
         this.renderer = new THREE.WebGLRenderer({
             canvas: this.canvas,
             antialias: true,
-
+            alpha: true,
+            powerPreference: "high-performance"
         });
-        this.renderer.physicallyCorrectLights = true;
-        this.renderer.outputEncoding = THREE.sRGBEncoding;
-        this.renderer.toneMapping = THREE.CineonToneMapping;
-        this.renderer.toneMappingExposure = 1.75;
+        
+        // Modern Three.js settings
+        this.renderer.useLegacyLights = false;
+        this.renderer.outputColorSpace = THREE.SRGBColorSpace;
+        
+        // Enhanced tone mapping for better visuals
+        this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        this.renderer.toneMappingExposure = 1.2;
+        
+        // High quality shadows
         this.renderer.shadowMap.enabled = true;
-        this.renderer.shadowMap.type = THREE.PCFShadowMap;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        
+        // Better rendering settings
         this.renderer.setSize(this.sizes.width, this.sizes.height);
-        this.renderer.setPixelRatio(this.sizes.pixelRatio);
-        this.renderer.gammaOutput = true; // Ensures that colors are correctly gamma-corrected
-        this.renderer.gammaFactor = 2.2;
+        this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2));
+        
+        // Clear color for better contrast
+        this.renderer.setClearColor(new THREE.Color('#0a0a0a'), 0);
+        
+        this.setPostProcessing();
+    }
+
+    setPostProcessing() {
+        // Create effect composer
+        this.effectComposer = new EffectComposer(this.renderer);
+        
+        // Render pass
+        this.renderPass = new RenderPass(this.scene, this.camera.orthograpicCamera);
+        this.effectComposer.addPass(this.renderPass);
+        
+        // Subtle bloom effect (reduced since we have brighter lights)
+        this.bloomPass = new UnrealBloomPass(
+            new THREE.Vector2(this.sizes.width, this.sizes.height),
+            0.15,  // reduced strength
+            0.6,   // reduced radius
+            0.2    // higher threshold
+        );
+        this.effectComposer.addPass(this.bloomPass);
+        
+        // Output pass for proper color space
+        this.outputPass = new OutputPass();
+        this.effectComposer.addPass(this.outputPass);
     }
 
     resize(){
         this.renderer.setSize(this.sizes.width, this.sizes.height);
-        this.renderer.setPixelRatio(this.sizes.pixelRatio);
-
-
+        this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2));
+        
+        // Update post-processing
+        this.effectComposer.setSize(this.sizes.width, this.sizes.height);
+        this.effectComposer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2));
+        
+        // Update bloom pass
+        this.bloomPass.resolution.set(this.sizes.width, this.sizes.height);
     }
     update(){
-       // this.renderer.setViewport(0, 0, this.sizes.width, this.sizes.height);
-        this.renderer.render(this.scene, this.camera.orthograpicCamera);
-    
-       /* // Enable the scissor test
-        this.renderer.setScissorTest(true);
-    
-        // Set the scissor rectangle
-        this.renderer.setScissor(
-            this.sizes.width - this.sizes.width / 3,
-            this.sizes.height - this.sizes.height / 3,
-            this.sizes.width / 3,
-            this.sizes.height / 3
-        );
-    
-        // Set the viewport
-        this.renderer.setViewport(
-            this.sizes.width - this.sizes.width / 3,
-            this.sizes.height - this.sizes.height / 3,
-            this.sizes.width / 3,
-            this.sizes.height / 3
-        );
-    
-        // Render the part of the scene inside the scissor rectangle
-        this.renderer.render(this.scene, this.camera.perspectiveCamera);
-    
-        // Disable the scissor test
-        this.renderer.setScissorTest(false);*/
+        // Use post-processing instead of direct rendering
+        this.effectComposer.render();
     }
     
 

@@ -25,16 +25,30 @@ export default class Resources extends EventEmitter{
         this.loaders = {}
         this.loaders.gltfLoader = new GLTFLoader();
         this.loaders.dracoLoader = new DRACOLoader();
-        this.loaders.dracoLoader.setDecoderPath("/draco/");
+        
+        // Use CDN version of DRACO decoder
+        this.loaders.dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
+        this.loaders.dracoLoader.preload();
+        
         this.loaders.gltfLoader.setDRACOLoader(this.loaders.dracoLoader);
 
     }
     startLoading(){
         for(const asset of this.Assets){
             if(asset.type==="glbModel"){
-                this.loaders.gltfLoader.load(asset.path,(file)=>{
-                    this.singleAssetLoaded(asset, file);
-                });
+                this.loaders.gltfLoader.load(
+                    asset.path,
+                    (file) => {
+                        console.log(`✅ Loaded 3D model: ${asset.name}`);
+                        this.singleAssetLoaded(asset, file);
+                    },
+                    (progress) => {
+                        console.log(`⏳ Loading ${asset.name}: ${Math.round((progress.loaded / progress.total) * 100)}%`);
+                    },
+                    (error) => {
+                        console.error(`❌ Error loading ${asset.name}:`, error);
+                    }
+                );
             }//else if(asset.type ===)
         }
 

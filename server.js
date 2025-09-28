@@ -22,7 +22,8 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 async function fetchIPData() {
-  const url = 'https://iptoearth.expeditedaddons.com/?api_key=46DML4235XRISJPTV1E02WH7OY9073Z986QKG8BC5F1AUN&ip=68.10.149.45';
+  const apiKey = process.env.IPTOEARTH_API_KEY || 'your-api-key-here';
+  const url = `https://iptoearth.expeditedaddons.com/?api_key=${apiKey}&ip=68.10.149.45`;
   try {
     const response = await fetch(url);
     if (!response.ok) { // or check for response.status

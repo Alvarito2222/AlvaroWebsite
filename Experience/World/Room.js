@@ -1,7 +1,7 @@
 import Experience from "../Experience.js";
 
 import * as THREE  from"three";
-import GSAP from "gsap";
+import { gsap } from "gsap";
 
 export default class Room{
     constructor(){
@@ -11,22 +11,11 @@ export default class Room{
        this.resources = this.experience.resources;
        this.room = this.resources.items.room;
        this.actualRoom = this.room.scene;
-       this.lerpx = {
-        current: 0,
-        target: 0,
-        ease:0.7
-       };
-
-       this.lerpy = {
-        current: 0,
-        target: 0,
-        ease:0.7
-       };
 
       
        
        this.setModel();
-       this.onMouseMove();
+       this.setAnimation();
        
     }
 
@@ -47,28 +36,29 @@ export default class Room{
         
         this.scene.add(this.actualRoom);
         this.actualRoom.scale.set(0.07,0.07,0.07);
+        
+        // Keep room centered
+        this.actualRoom.position.set(0, 0.1, 0);
+        
+        // Keep original rotation or very slight adjustment
+        this.actualRoom.rotation.set(0, 0, 0);
+    }
+
+    setAnimation(){
+        // Subtle floating animation for the entire room (only Y position)
+        gsap.to(this.actualRoom.position, {
+            y: 0.2,
+            duration: 6,
+            ease: "power2.inOut",
+            yoyo: true,
+            repeat: -1
+        });
+        
+        // Remove the rotation animation since we want it centered and stable
+        // The room will only move with mouse up/down and floating animation
     }
     
-    onMouseMove(){
-        window.addEventListener("mousemove",(e) => {
-            
-            this.rotationy = ((e.clientX - window.innerWidth / 2)*2) / window.innerWidth  ;
-            this.lerpy.target = this.rotationy*0.1;
-
-           
-        });
-
-        window.addEventListener("mousemove",(s) => {
-            
-            
-
-            this.rotationx = ((s.clientY - window.innerWidth / 2)*2) / window.innerWidth  ;
-            this.lerpx.target = this.rotationx*0.1;
-
-            
-        });
-
-    }
+    // Removed mouse interaction - room stays perfectly centered
 
     resize(){
         
@@ -76,22 +66,8 @@ export default class Room{
 
     }
     update(){
-        this.lerpy.current = GSAP.utils.interpolate(
-            this.lerpy.current,
-            this.lerpy.target,
-            this.lerpy.ease
-        );
-        this.lerpx.current = GSAP.utils.interpolate(
-            this.lerpx.current,
-            this.lerpx.target,
-            this.lerpx.ease
-        );
-       
-
-        this.actualRoom.rotation.x = this.lerpx.current;
-        this.actualRoom.rotation.y = this.lerpy.current;
-       
-        
+        // No manual updates needed - GSAP handles all animations
+        // Room stays perfectly centered with only floating animation
     }
 
 }

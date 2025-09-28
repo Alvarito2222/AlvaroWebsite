@@ -13,12 +13,12 @@
     "@ashthornton/asscroll": "^2.0.11",
     "gsap": "^3.11.4",
     "lil-gui": "^0.19.2",
-    "vite": "^4.1.0"
+    "vite": "^7.1.7"
   },
   "dependencies": {
     "events": "^3.3.0",
     "express": "^4.19.2",
     "node-fetch": "^3.3.2",
-    "three": "^0.149.0"
+    "three": "^0.180.0"
   }
 }

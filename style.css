@@ -1,22 +1,97 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');  
 
-*{
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html,body {
-  font-family : "Montserrat", sans-serif;
-  color: var(--text-black);
+/* Modern CSS improvements */
+:root {
+  --transition-speed: 0.3s;
+  --transition-ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  color: var(--text-black);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Loading Screen Styles */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease-out;
+}
+
+.loading-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loading-spinner {
+  text-align: center;
+  color: white;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 4px solid white;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner p {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Smooth transitions */
 h1,
 section,
 p,
 span,
-svg{
-  transition: background-color 0.5s , color 0.5s;
+svg {
+  transition: background-color var(--transition-speed) var(--transition-ease), 
+              color var(--transition-speed) var(--transition-ease);
 }
 
 :root{
@@ -350,9 +425,148 @@ svg{
 
 .section-intro-wrapper{
   position: relative;
-  padding: 20% 5%;
+  padding: 15% 8%;
   border-bottom: 2px solid var(--color-pink);
   padding-bottom: 400px;
+  margin-left: 5%;
+  margin-top: -5%;
+}
+
+/* Responsive adjustments for different screen sizes */
+@media (min-width: 1400px) {
+  .section-intro-wrapper {
+    padding: 12% 10%;
+    margin-left: 8%;
+    margin-top: -3%;
+  }
+  
+  .Experience canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .section-intro-wrapper {
+    padding: 14% 8%;
+    margin-left: 6%;
+  }
+}
+
+@media (max-width: 968px) {
+  .section-intro-wrapper {
+    padding: 20% 5%;
+    margin-left: 0;
+    margin-top: 0;
+  }
+}
+
+/* Salesforce icon now matches other icons styling */
+
+/* Certifications Section Styling */
+.certifications-container {
+  margin-top: 2rem;
+}
+
+.cert-category {
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border-left: 4px solid var(--color-pink);
+  backdrop-filter: blur(10px);
+}
+
+.cert-category-title {
+  color: var(--color-pink);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cert-category-title::before {
+  content: "☁️";
+  font-size: 1.1rem;
+}
+
+.cert-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.certification-item {
+  padding: 1.2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.certification-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.cert-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.8rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.cert-title {
+  color: var(--text-black);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  flex: 1;
+  min-width: 200px;
+}
+
+.cert-date {
+  background: var(--color-pink);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.cert-description {
+  color: var(--text-black);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+  opacity: 0.8;
+}
+
+/* Responsive certifications */
+@media (max-width: 768px) {
+  .cert-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .cert-title {
+    min-width: unset;
+    margin-bottom: 0.5rem;
+  }
+  
+  .cert-category {
+    padding: 1rem;
+  }
+  
+  .certification-item {
+    padding: 1rem;
+  }
 }
 
 .section-detail-wrapper{

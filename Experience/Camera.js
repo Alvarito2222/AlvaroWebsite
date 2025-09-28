@@ -19,17 +19,20 @@ export default class Camera{
 
     createPerspectiveCamera(){
         this.perspectiveCamera = new THREE.PerspectiveCamera(
-            35,
+            45, // Increased FOV for more immersive view
             this.sizes.aspect,
             0.1,
             1000
             );
         this.scene.add(this.perspectiveCamera)
 
-        this.perspectiveCamera.position.x = -2.3;
-        this.perspectiveCamera.position.y = 2;
-        this.perspectiveCamera.position.z = 5;
-        this.perspectiveCamera.rotation.x= -Math.PI / 10;
+        // Back to good camera position with tiny adjustments
+        this.perspectiveCamera.position.x = -2.5;
+        this.perspectiveCamera.position.y = 2.2;
+        this.perspectiveCamera.position.z = 5.5;
+        
+        // Look at the centered room
+        this.perspectiveCamera.lookAt(0, 0.15, 0);
         
         
     }
@@ -65,7 +68,22 @@ export default class Camera{
     setOrbitControls(){
         this.controls = new OrbitControls(this.perspectiveCamera, this.canvas); 
         this.controls.enableDamping = true;
+        this.controls.dampingFactor = 0.05;
         this.controls.enableZoom = true;
+        
+        // Set target back to centered room
+        this.controls.target.set(0, 0.15, 0);
+        
+        // Limit camera movement for better UX
+        this.controls.maxPolarAngle = Math.PI * 0.75; // Prevent camera from going too low
+        this.controls.minDistance = 3;
+        this.controls.maxDistance = 15;
+        
+        // Smooth rotation limits
+        this.controls.maxAzimuthAngle = Math.PI * 0.5;
+        this.controls.minAzimuthAngle = -Math.PI * 0.5;
+        
+        this.controls.update();
     }
 
     resize(){
