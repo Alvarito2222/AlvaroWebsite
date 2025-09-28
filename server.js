@@ -21,21 +21,42 @@ app.get('*', (req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
-async function fetchIPData() {
-  const apiKey = process.env.IPTOEARTH_API_KEY || 'your-api-key-here';
-  const url = `https://iptoearth.expeditedaddons.com/?api_key=${apiKey}&ip=68.10.149.45`;
-  try {
-    const response = await fetch(url);
-    if (!response.ok) { // or check for response.status
-      throw new Error('Network response was not ok: ' + response.statusText);
-    }
-    const data = await response.json();
-    console.log('Response data:', data);
-  } catch (error) {
-    console.error('Failed to fetch IP data:', error);
+// IP Geolocation Service for Analytics
+async function initIPGeolocation() {
+  if (!process.env.IPTOEARTH_API_KEY) {
+    console.log('IP geolocation service not configured');
+    return;
   }
+
+  const apiKey = process.env.IPTOEARTH_API_KEY;
+  
+  // Add endpoint for client-side IP lookup
+  app.get('/api/visitor-info', async (req, res) => {
+    try {
+      const clientIP = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+      const url = `https://iptoearth.expeditedaddons.com/?api_key=${apiKey}&ip=${clientIP}`;
+      
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('IP service unavailable');
+      }
+      
+      const data = await response.json();
+      
+      // Return only non-sensitive location data
+      res.json({
+        country: data.country,
+        region: data.region,
+        city: data.city,
+        timezone: data.timezone
+      });
+    } catch (error) {
+      console.error('IP geolocation error:', error);
+      res.status(500).json({ error: 'Service unavailable' });
+    }
+  });
 }
 
-fetchIPData();
+initIPGeolocation();
 
 

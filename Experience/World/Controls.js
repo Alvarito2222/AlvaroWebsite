@@ -76,9 +76,9 @@ export default class Controls{
       }
 
     setSmoothScroll(){
-        // Temporarily disable smooth scroll to fix jumping issue
-        // this.asscroll = this.setupASScroll();
-        console.log("Smooth scroll disabled to fix jumping issue");
+        // Re-enable smooth scroll with improved settings
+        this.asscroll = this.setupASScroll();
+        console.log("Smooth scroll enabled with improved settings");
     }
 
     setScrollTrigger(){

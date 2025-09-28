@@ -1,12 +1,13 @@
 import './style.css'
 import Experience from './Experience/Experience'
 
-// Modern loading and initialization
+// Modern loading and initialization with performance monitoring
 class App {
   constructor() {
     this.loadingScreen = document.getElementById('loading-screen')
     this.canvas = document.querySelector(".experience-canvas")
     this.experience = null
+    this.startTime = performance.now()
     
     this.init()
   }
@@ -51,7 +52,32 @@ class App {
       this.loadingScreen.classList.add('fade-out')
       setTimeout(() => {
         this.loadingScreen.style.display = 'none'
+        this.trackPerformance()
       }, 500)
+    }
+  }
+
+  trackPerformance() {
+    const loadTime = performance.now() - this.startTime
+    console.log(`🚀 Portfolio loaded in ${Math.round(loadTime)}ms`)
+    
+    // Track with Google Analytics if available
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'timing_complete', {
+        name: 'portfolio_load',
+        value: Math.round(loadTime)
+      })
+    }
+    
+    // Track Core Web Vitals
+    if ('web-vitals' in window) {
+      import('https://unpkg.com/web-vitals@3/dist/web-vitals.js').then(({getCLS, getFID, getFCP, getLCP, getTTFB}) => {
+        getCLS(console.log)
+        getFID(console.log)
+        getFCP(console.log)
+        getLCP(console.log)
+        getTTFB(console.log)
+      })
     }
   }
 }
