@@ -215,10 +215,8 @@ export default class Controls{
                 },"same");
             },
             
-            //Mobile (968px and below)
-            "(max-width: 968px)":  () => {
-                
-
+            //Regular Mobile (561px - 968px)
+            "(min-width: 561px) and (max-width: 968px)": () => {
                 //Resets - centered position more to the left
                 this.room.scale.set(0.04,0.04,0.04) // Smaller mobile scale
                 this.room.position.set(-0.5,0,0); // Move to the left
@@ -259,6 +257,51 @@ export default class Controls{
                     x: 3.2,   // A bit more to the right
                     y: 0.3,   // Slightly higher
                     z: 0.8,   // More forward for better view
+                },"2nd");
+            },
+            
+            //Small Mobile (560px and below)
+            "(max-width: 560px)": () => {
+                //Resets - much smaller and properly centered
+                this.room.scale.set(0.025, 0.025, 0.025) // Much smaller for tiny screens
+                this.room.position.set(-1.2, 0, 0); // Way more to the left for proper centering
+
+                //First Section
+                this.firstMoveTimeline = new gsap.timeline({
+                    scrollTrigger:{
+                        trigger:".first-move",
+                        start:"top top",
+                        end: "bottom bottom",
+                        scrub : 0.6,
+                        invalidateOnRefresh: true,
+                    }
+                }).to(this.room.position, {
+                    x: -1.0,  // Way more to the left for centering
+                    y: 0,
+                    z: 0
+                },"same").to(this.room.scale,{
+                    x: 0.025,  // Stay small
+                    y: 0.025,
+                    z: 0.025
+                },"same")
+
+                //Second Section - Keep the good zoom behavior
+                this.secondMoveTimeLine = new gsap.timeline({
+                    scrollTrigger:{
+                        trigger:".second-move",
+                        start:"top top",
+                        end: "bottom bottom",
+                        scrub : 0.6,
+                        invalidateOnRefresh: true,
+                    }
+                }).to(this.room.scale,{
+                    x: 0.17,  // Same zoom as regular mobile
+                    y: 0.17,
+                    z: 0.17,
+                },"2nd").to(this.room.position, {
+                    x: 3.2,   // Same zoom position as regular mobile
+                    y: 0.3,
+                    z: 0.8,
                 },"2nd");
             },
 

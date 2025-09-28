@@ -453,11 +453,40 @@ svg {
   }
 }
 
-@media (max-width: 968px) {
+@media (min-width: 561px) and (max-width: 968px) {
   .section-intro-wrapper {
     padding: 20% 5%;
     margin-left: 0;
     margin-top: 0;
+  }
+}
+
+/* Very small mobile screens (560px and below) */
+@media (max-width: 560px) {
+  .section-intro-wrapper {
+    padding: 25% 3%;
+    margin-left: 0;
+    margin-top: 0;
+    text-align: center;
+  }
+  
+  .Experience canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  
+  .hero-main-title {
+    font-size: 1.8rem !important;
+    line-height: 1.2 !important;
+  }
+  
+  .hero-main-description {
+    font-size: 0.9rem !important;
+  }
+  
+  .icon-container {
+    justify-content: center !important;
+    gap: 1rem !important;
   }
 }
 
