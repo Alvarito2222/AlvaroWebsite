@@ -76,9 +76,9 @@ export default class Controls{
       }
 
     setSmoothScroll(){
-        // Re-enable smooth scroll with improved settings
-        this.asscroll = this.setupASScroll();
-        console.log("Smooth scroll enabled with improved settings");
+        // Disable smooth scroll - not working well
+        // this.asscroll = this.setupASScroll();
+        console.log("Smooth scroll disabled - using native browser scrolling");
     }
 
     setScrollTrigger(){
